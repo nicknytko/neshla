@@ -247,8 +247,6 @@ int FASTCALL CompileVarBody(U16 flags, S16 *brackCnt, VAR *var, int *_elementsSi
             if(braceCntStart != braceCnt) {
                 error(ERR_CLOSEBRACEEXP,var->label);
             }
-            if(!PRECOMPILING)
-                var=var;
         } else if(szTemp[0]=='{' && var->arraySize) {
             int arsize = var->arraySize;
 
@@ -284,7 +282,7 @@ int FASTCALL CompileVarBody(U16 flags, S16 *brackCnt, VAR *var, int *_elementsSi
                     szString[len?len-1:0] = '\0';
                     error(ERR_STRINGTOOLONG,szString);
                 }
-                BankWrite(szString,len);
+                BankWrite((U8*)szString,len);
                 if(var->arraySize) {
                     BankFill(0,var->arraySize-len);
                     elementsSize += var->arraySize;

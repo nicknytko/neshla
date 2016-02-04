@@ -15,27 +15,27 @@
  ******************************************************************************/
 
 STRNAMELIST szPreprocess[] = {
-    {"setpad", ""},
-    {"align", ""},
+    {"setpad", {""}},
+    {"align", {""}},
 
-    {"define", ""},
-    {"undef", ""},
+    {"define", {""}},
+    {"undef", {""}},
 
-    {"ifdef", ""},
-    {"ifndef", ""},
-    {"else", ""},
-    {"endif", ""},
+    {"ifdef", {""}},
+    {"ifndef", {""}},
+    {"else", {""}},
+    {"endif", {""}},
 
-    {"todo", ""},
-    {"warning", ""},
-    {"error", ""},
-    {"fatal", ""},
+    {"todo", {""}},
+    {"warning", {""}},
+    {"error", {""}},
+    {"fatal", {""}},
     {"tell",
      {"bank", "bankoffset", "banksize", "bankfree", "banktype", ""}},
 
-    {"include", ""},
-    {"incbin", ""},
-    {"usepath", ""},
+    {"include", {""}},
+    {"incbin", {""}},
+    {"usepath", {""}},
 
     {"ram",
      {"org", "end", ""}},
@@ -47,12 +47,12 @@ STRNAMELIST szPreprocess[] = {
      {"banksize", "bank", "end", ""}},
 
     {"ines",
-     {"mapper", "mirroring", "battery", "trainer", "fourscreen", "prgrepeat", "chrrepeat", "off",""}},
+     {"mapper", "mirroring", "battery", "trainer", "fourscreen", "prgrepeat", "chrrepeat", "off", ""}},
 
     {"interrupt",
      {"nmi","start","irq", ""}},
 
-    {"",""},
+    {"",{""}},
 };
 
 STRINT siMirroring[] = {
@@ -234,8 +234,6 @@ BOOL FASTCALL comProc_Preprocess(U16 flags, S16 *brackCnt)
                     if(!IsStrNum(GetNextWord())) {
                         error(ERR_INTEXP);
                     } else {
-                        if(strcmp(szTemp,"-1")==0)
-                            index=index;
                         index = ConfirmWord(StrToInt(szTemp));
                     }
                     if(*szTemp!='}' && *szTemp!=',')

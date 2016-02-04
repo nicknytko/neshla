@@ -256,8 +256,6 @@ S32     FASTCALL GetBankOffset()
 S32     FASTCALL GetBankSpace()
 {
     CheckCurBank();
-    if(curBank->type==BANKTYPE_CHR)
-        curBank = curBank;
     return (curBank->maxsize-BANK_OFFSET(curBank));
 }
 /*********************************************************************/
@@ -303,9 +301,6 @@ BOOL    FASTCALL IncBin(char *filename, S32 maxsize)
     S32 len,bankspace;
 
     if(PRECOMPILING) return TRUE;
-
-    if(maxsize==0x10000)
-        maxsize = maxsize;
 
     if((buffer=LoadFile(DIR_SCRIPT,filename,&len))==NULL) {
         error(ERR_OPENFILE_IN, filename);

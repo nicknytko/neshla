@@ -22,7 +22,6 @@ void InitROMHeader()
 /******************************************************************************/
 void fprintvar(FILE *f, VAR *var, char *szStart, int indent)
 {
-    VAR *vp;
     char *sz;
     int i;
 
@@ -32,7 +31,7 @@ void fprintvar(FILE *f, VAR *var, char *szStart, int indent)
 
     while(var) {
         fprintf(f,"%04X: (%-4d)",
-                var->offset, var->size);
+                (unsigned int)var->offset, var->size);
         if(var->arraySize)
             fprintf(f,"[%-4d]: ",var->arraySize);
         else
@@ -56,9 +55,7 @@ void fprintvar(FILE *f, VAR *var, char *szStart, int indent)
 /******************************************************************************/
 void fprintfunc(FILE *f, FUNC *func, char *szStart, int indent)
 {
-    FUNC *fp;
     PARAM *param;
-    char *sz;
     int i;
 
     if(!func) return;
@@ -69,7 +66,7 @@ void fprintfunc(FILE *f, FUNC *func, char *szStart, int indent)
         if(func->type==FUNCTYPE_INLINE)
             fprintf(f,"----: ");
         else
-            fprintf(f,"%04X: ", func->offset);
+            fprintf(f,"%04X: ", (unsigned int)func->offset);
         for(i=0;i<indent;i++)
             fprintf(f,"\t");
         fprintf(f,"%s\t%s(",
@@ -95,19 +92,16 @@ void fprintfunc(FILE *f, FUNC *func, char *szStart, int indent)
 /******************************************************************************/
 void fprintbank(FILE *f, BANK *bank, char *szStart, int indent)
 {
-    char *sz;
-    int i;
-
     int totalfreeprg = 0, totalfreechr = 0;
 
     while(bank) {
         fprintf(f,"%s\t%s\n",szBankTypes[bank->type],bank->label);
         fprintf(f,"\tORG: $%04X, END: $%04X, SIZE: %5d / MAX SIZE: %5d, FREE: %5d, ",
-                bank->org,
-                (BANK_OFFSET(bank)+bank->org),
-                (BANK_OFFSET(bank)),
-                bank->maxsize,
-                bank->maxsize-(BANK_OFFSET(bank))
+                (unsigned int)bank->org,
+                (unsigned int)(BANK_OFFSET(bank)+bank->org),
+                (unsigned int)(BANK_OFFSET(bank)),
+                (int)bank->maxsize,
+                (int)(bank->maxsize-(BANK_OFFSET(bank)))
             );
         switch(bank->type) {
         case BANKTYPE_ROM:

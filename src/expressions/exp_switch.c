@@ -27,9 +27,7 @@ char *szCaseOps[] = {
 BOOL FASTCALL comProc_Switch(U16 flags, S16 *_brackCnt)
 {
     BOOL        FAR_BRANCH;
-    BANK        *bank;
     int         mode,opid;
-    BOOL        BRACED_CASE;
 
     BRANCHLIST *cmpBranches = NULL, *endBranches = NULL;
 

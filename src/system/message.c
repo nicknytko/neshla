@@ -294,10 +294,10 @@ void ShutDownMessages()
 #define PRINT_EMSG(STRINGS)                                             \
     if(scr) {                                                           \
         while(scr->parent&&!scr->path) {                                \
-            printf("Within \"%s\": (%d),\n\t", scr->filename, scr->line); \
+            printf("Within \"%s\": (%d),\n\t", scr->filename, (int)scr->line); \
             scr = scr->parent;                                          \
         }                                                               \
-        printf("%s (%d: %d): ", scr->filename, scr->line, GetLineCharsEx(scr->buffer,scr->inPtr)); \
+        printf("%s (%d: %d): ", scr->filename, (int)scr->line, GetLineCharsEx(scr->buffer,scr->inPtr)); \
     }                                                                   \
     va_start(argptr, errnum);                                           \
     vprintf(STRINGS[errnum], argptr);                                   \
@@ -385,10 +385,10 @@ void notice(int msg, char *str, ...)
             printf("\n[Tell: %s]: ", szPreprocess[PREPROCESS_TELL].members[msg]);
         if(scr) {
             while(scr->parent&&!scr->path) {
-                printf("Within \"%s\": (%d),\n\t", scr->filename, scr->line);
+                printf("Within \"%s\": (%d),\n\t", scr->filename, (int)scr->line);
                 scr = scr->parent;
             }
-            printf("%s (%d: %d): ", scr->filename, scr->line, GetLineCharsEx(scr->buffer,scr->inPtr));
+            printf("%s (%d: %d): ", scr->filename, (int)scr->line, GetLineCharsEx(scr->buffer,scr->inPtr));
         }
 
         printf("\n\t");
@@ -429,7 +429,7 @@ void message(int errnum, ...)
     if(errnum==1) {
         if(scr) {
             while(scr->parent&&!scr->path) scr = scr->parent;
-            printf("%s (%d: %d): ", scr->filename, scr->line, GetLineCharsEx(scr->buffer,scr->inPtr));
+            printf("%s (%d: %d): ", scr->filename, (int)scr->line, GetLineCharsEx(scr->buffer,scr->inPtr));
         }
         va_start(argptr, errnum);
         s = va_arg(argptr, char*);

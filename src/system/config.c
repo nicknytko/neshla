@@ -125,8 +125,12 @@ int FindComop(char *str)
 {
     COMOP *co = comoptions;
     int num=0;
-    while(co->label[0]) {
-        if(!STRCMP(co->label, str)) return num;
+    
+    while(co->label[0])
+    {
+        if(!STRCMP((char*)co->label,str))
+            return num;
+        
         co++;
         num++;
     }
@@ -157,7 +161,8 @@ void ParseCommandLine(int argc, char* argv[])
         int conum;
 
         s = argv[c];
-        if(s[0] != '-' || !s[1] || (conum = FindComop(s+1)) == -1) {
+        conum = FindComop(s+1);
+        if(s[0] != '-' || !s[1] || conum == -1) {
             message(0,"Invalid command option \"%s\"!", s);
             bexit(2);
         }
